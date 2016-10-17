@@ -17,6 +17,18 @@ class ManoApp < Sinatra::Base
     erb :main
   end
 
+  get '/new_customer' do
+    @customer = Customer.new(name: '', surname: '', age: nil, code: nil, id:nil)
+    erb :new_customer
+  end
+
+  post '/new_customer' do
+    @customer = Customer.new(name: params[:name], surname: params[:surname],
+                             age: params[:age], code: params[:code], id: nil)
+    @customer.create
+    erb :show_customer
+  end
+
   get '/customers/:id' do
     @customer = Customer.find(params[:id])
     erb :show_customer
